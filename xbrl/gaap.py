@@ -23,7 +23,7 @@ serializer = GAAPSerializer()
 result = serializer.dump(gaap_obj)
 
 # Print out the serialized GAAP data
-print(result.data)
+print(result)
 
 
 # Parse just the DEI data from the xbrl object
@@ -34,7 +34,7 @@ serializer = DEISerializer()
 result = serializer.dump(dei_obj)
 
 # Print out the serialized DEI data
-print(result.data)
+print(result)
 
 # Parse the custom data from the xbrl object
 data_obj = xbrl_parser.parseCustom(xbrl)

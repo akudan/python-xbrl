@@ -93,7 +93,7 @@ You can also just view the data in the serialized object
 
 ::
 
-    print result.data
+    print result
 
 You can apply various parsers to the base ``XBRLParser`` object to get
 different data than just GAAP data from the document. In addition as
