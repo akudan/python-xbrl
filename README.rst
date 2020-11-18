@@ -64,8 +64,7 @@ First parse the incoming XRBL file into a new ``XBRL`` basic object
 
 ::
 
-    with open("sam-20131228.xml") as fh:
-        xbrl = XBRL.parse(fh, ignore_errors=0)
+    xbrl = XBRL.from_file("sam-20131228.xml", ignore_errors=0)
 
 -  Error handling. ``0`` raise exception for all parsing errors and halt parsing, ``1`` Supress all parsing errors and continue parsing, ``2`` Log all parsing errors and continue parsing 
 
