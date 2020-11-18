@@ -4,18 +4,13 @@
 import re
 from marshmallow import Schema, fields
 import datetime
-import collections
+from collections import OrderedDict
 import logging
 
 try:
     from StringIO import StringIO
 except ImportError:
     from io import StringIO
-
-if 'OrderedDict' in dir(collections):
-    odict = collections
-else:
-    import ordereddict as odict
 
 
 def soup_maker(fh):
@@ -36,7 +31,7 @@ class XBRLFile(object):
         """
         fh should be a seekable file-like byte stream object
         """
-        self.headers = odict.OrderedDict()
+        self.headers = OrderedDict()
         self.fh = fh
 
 
