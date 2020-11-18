@@ -313,7 +313,7 @@ class XBRL(object):
             XBRL.data_processing(stockholders_equity, ignore_errors, logger)
 
         # Incomes #
-        revenues = xbrl.find_all(name=re.compile("(us-gaap:)[^s]*(revenue)",
+        revenues = xbrl.find_all(name=re.compile("(us-gaap:)[^s]*(revenues)",
                                  re.IGNORECASE | re.MULTILINE))
         gaap_data["revenues"] = XBRL.data_processing(revenues, ignore_errors, logger)
 
@@ -734,7 +734,7 @@ class GAAP:
     equity_attributable_interest : float = 0.0
     equity_attributable_parent : float = 0.0
     stockholders_equity : float = 0.0
-    revenue : float = 0.0
+    revenues : float = 0.0
     cost_of_revenue : float = 0.0
     gross_profit : float = 0.0
     costs_and_expenses : float = 0.0
@@ -785,7 +785,7 @@ class GAAPSerializer(Schema):
     equity_attributable_interest = fields.Number()
     equity_attributable_parent = fields.Number()
     stockholders_equity = fields.Number()
-    revenue = fields.Number()
+    revenues = fields.Number()
     cost_of_revenue = fields.Number()
     gross_profit = fields.Number()
     operating_expenses = fields.Number()
