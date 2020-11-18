@@ -5,6 +5,7 @@ import re
 from marshmallow import Schema, fields
 import datetime
 from collections import OrderedDict
+from dataclasses import dataclass
 import logging
 
 try:
@@ -717,111 +718,56 @@ class XBRLPreprocessedFile(XBRLFile):
 
 
 # Base GAAP object
-class GAAP(object):
-    def __init__(self,
-                 assets=0.0,
-                 current_assets=0.0,
-                 non_current_assets=0.0,
-                 liabilities_and_equity=0.0,
-                 liabilities=0.0,
-                 current_liabilities=0.0,
-                 noncurrent_liabilities=0.0,
-                 commitments_and_contingencies=0.0,
-                 redeemable_noncontrolling_interest=0.0,
-                 temporary_equity=0.0,
-                 equity=0.0,
-                 equity_attributable_interest=0.0,
-                 equity_attributable_parent=0.0,
-                 stockholders_equity=0.0,
-                 revenue=0.0,
-                 cost_of_revenue=0.0,
-                 gross_profit=0.0,
-                 costs_and_expenses=0.0,
-                 other_operating_income=0.0,
-                 operating_income_loss=0.0,
-                 nonoperating_income_loss=0.0,
-                 interest_and_debt_expense=0.0,
-                 income_before_equity_investments=0.0,
-                 income_from_equity_investments=0.0,
-                 income_tax_expense_benefit=0.0,
-                 extraordary_items_gain_loss=0.0,
-                 income_loss=0.0,
-                 net_income_shareholders=0.0,
-                 preferred_stock_dividends=0.0,
-                 net_income_loss_noncontrolling=0.0,
-                 net_income_parent=0.0,
-                 net_income_loss=0.0,
-                 other_comprehensive_income=0.0,
-                 comprehensive_income=0.0,
-                 comprehensive_income_parent=0.0,
-                 comprehensive_income_interest=0.0,
-                 net_cash_flows_operating=0.0,
-                 net_cash_flows_investing=0.0,
-                 net_cash_flows_financing=0.0,
-                 net_cash_flows_operating_continuing=0.0,
-                 net_cash_flows_investing_continuing=0.0,
-                 net_cash_flows_financing_continuing=0.0,
-                 net_cash_flows_operating_discontinued=0.0,
-                 net_cash_flows_investing_discontinued=0.0,
-                 net_cash_flows_discontinued=0.0,
-                 common_shares_outstanding=0.0,
-                 common_shares_issued=0.0,
-                 common_shares_authorized=0.0):
-        self.assets = assets
-        self.current_assets = current_assets
-        self.non_current_assets = non_current_assets
-        self.liabilities_and_equity = liabilities_and_equity
-        self.liabilities = liabilities
-        self.current_liabilities = current_liabilities
-        self.noncurrentLiabilities = noncurrent_liabilities
-        self.commitments_and_contingencies = commitments_and_contingencies
-        self.redeemable_noncontrolling_interest = \
-            redeemable_noncontrolling_interest
-        self.temporary_equity = temporary_equity
-        self.equity = equity
-        self.equity_attributable_interest = equity_attributable_interest
-        self.equity_attributable_parent = equity_attributable_parent
-        self.stockholders_equity = stockholders_equity
-        self.revenue = revenue
-        self.cost_of_revenue = cost_of_revenue
-        self.gross_profit = gross_profit
-        self.costs_and_expenses = costs_and_expenses
-        self.other_operating_income = other_operating_income
-        self.nonoperating_income_loss = nonoperating_income_loss
-        self.interest_and_debt_expense = interest_and_debt_expense
-        self.income_before_equity_investments = \
-            income_before_equity_investments
-        self.income_from_equity_investments = income_from_equity_investments
-        self.income_tax_expense_benefit = income_tax_expense_benefit
-        self.net_income_shareholders = net_income_shareholders
-        self.extraordary_items_gain_loss = extraordary_items_gain_loss
-        self.income_loss = income_loss
-        self.net_income_shareholders = net_income_shareholders
-        self.preferred_stock_dividends = preferred_stock_dividends
-        self.net_income_loss_noncontrolling = net_income_loss_noncontrolling
-        self.net_income_parent = net_income_parent
-        self.net_income_loss = net_income_loss
-        self.other_comprehensive_income = other_comprehensive_income
-        self.comprehensive_income = comprehensive_income
-        self.comprehensive_income_parent = comprehensive_income_parent
-        self.comprehensive_income_interest = comprehensive_income_interest
-        self.net_cash_flows_operating = net_cash_flows_operating
-        self.net_cash_flows_investing = net_cash_flows_investing
-        self.net_cash_flows_financing = net_cash_flows_financing
-        self.net_cash_flows_operating_continuing = \
-            net_cash_flows_operating_continuing
-        self.net_cash_flows_investing_continuing = \
-            net_cash_flows_investing_continuing
-        self.net_cash_flows_financing_continuing = \
-            net_cash_flows_financing_continuing
-        self.net_cash_flows_operating_discontinued = \
-            net_cash_flows_operating_discontinued
-        self.net_cash_flows_investing_discontinued = \
-            net_cash_flows_investing_discontinued
-        self.net_cash_flows_discontinued = net_cash_flows_discontinued
-        self.common_shares_outstanding = common_shares_outstanding
-        self.common_shares_issued = common_shares_issued
-        self.common_shares_authorized = common_shares_authorized
+@dataclass
+class GAAP:
+    assets : float = 0.0
+    current_assets : float = 0.0
+    non_current_assets : float = 0.0
+    liabilities_and_equity : float = 0.0
+    liabilities : float = 0.0
+    current_liabilities : float = 0.0
+    noncurrent_liabilities : float = 0.0
+    commitments_and_contingencies : float = 0.0
+    redeemable_noncontrolling_interest : float = 0.0
+    temporary_equity : float = 0.0
+    equity : float = 0.0
+    equity_attributable_interest : float = 0.0
+    equity_attributable_parent : float = 0.0
+    stockholders_equity : float = 0.0
+    revenue : float = 0.0
+    cost_of_revenue : float = 0.0
+    gross_profit : float = 0.0
+    costs_and_expenses : float = 0.0
+    other_operating_income : float = 0.0
+    operating_income_loss : float = 0.0
+    nonoperating_income_loss : float = 0.0
+    interest_and_debt_expense : float = 0.0
+    income_before_equity_investments : float = 0.0
+    income_from_equity_investments : float = 0.0
+    income_tax_expense_benefit : float = 0.0
+    extraordary_items_gain_loss : float = 0.0
+    income_loss : float = 0.0
+    net_income_shareholders : float = 0.0
+    preferred_stock_dividends : float = 0.0
+    net_income_loss_noncontrolling : float = 0.0
+    net_income_parent : float = 0.0
+    net_income_loss : float = 0.0
+    other_comprehensive_income : float = 0.0
+    comprehensive_income : float = 0.0
+    comprehensive_income_parent : float = 0.0
+    comprehensive_income_interest : float = 0.0
+    net_cash_flows_operating : float = 0.0
+    net_cash_flows_investing : float = 0.0
+    net_cash_flows_financing : float = 0.0
+    net_cash_flows_operating_continuing : float = 0.0
+    net_cash_flows_investing_continuing : float = 0.0
+    net_cash_flows_financing_continuing : float = 0.0
+    net_cash_flows_operating_discontinued : float = 0.0
+    net_cash_flows_investing_discontinued : float = 0.0
+    net_cash_flows_discontinued : float = 0.0
+    common_shares_outstanding : float = 0.0
+    common_shares_issued : float = 0.0
+    common_shares_authorized : float = 0.0
 
 
 class GAAPSerializer(Schema):
@@ -877,16 +823,12 @@ class GAAPSerializer(Schema):
 
 
 # Base DEI object
-class DEI(object):
-    def __init__(self,
-                 trading_symbol='',
-                 company_name='',
-                 shares_outstanding=0.0,
-                 public_float=0.0):
-        self.trading_symbol = trading_symbol
-        self.company_name = company_name
-        self.shares_outstanding = shares_outstanding
-        self.public_float = public_float
+@dataclass
+class DEI:
+    trading_symbol : str = ''
+    company_name : str = ''
+    shares_outstanding : float = 0.0
+    public_float: float = 0.0
 
 
 class DEISerializer(Schema):
@@ -897,7 +839,7 @@ class DEISerializer(Schema):
 
 
 # Base Custom object
-class Custom(object):
+class Custom:
 
     def __init__(self):
         return None
