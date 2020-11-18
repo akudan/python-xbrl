@@ -27,7 +27,7 @@ def soup_maker(fh):
     return soup
 
 
-class XBRLFile(object):
+class XBRLFile:
     def __init__(self, fh):
         """
         fh should be a seekable file-like byte stream object
@@ -40,7 +40,7 @@ class XBRLException(Exception):
     pass
 
 
-class XBRL(object):
+class XBRL:
 
     def __init__(self):
         self.context_ids = {}
