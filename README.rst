@@ -39,7 +39,7 @@ Made sure your **sys.path** is correct.
 Requirements
 ------------
 
-- Python >= 2.6 or >= 3.3
+- Python >= 3.7
 
 python-xbrl relies on `beautifulsoup4 <http://beautiful-soup-4.readthedocs.org/en/latest/>`__ 
 which sits on top of the python XML parser `lxml <http://lxml.de/>`__. It also requires 
@@ -51,11 +51,11 @@ For PyPI support it is recommended you use `https://github.com/amauryfa/lxml <ht
 Initialization
 --------------
 
-To start using the library, first import the ``XBRLParser``
+To start using the library, first import ``XBRL``
 
 ::
 
-    from xbrl import XBRLParser, GAAP, GAAPSerializer
+    from xbrl import XBRL, GAAP, GAAPSerializer
 
 Simple Parsing Workflow
 -----------------------
@@ -64,22 +64,23 @@ First parse the incoming XRBL file into a new ``XBRL`` basic object
 
 ::
 
-    xbrl_parser = XBRLParser()
-    xbrl = xbrl_parser.parse(open("sam-20131228.xml"))
+    with open("sam-20131228.xml") as fh:
+        xbrl = XBRL.parse(fh, ignore_errors=0)
 
-Then you can parse the document using different parsers
+-  Error handling. ``0`` raise exception for all parsing errors and halt parsing, ``1`` Supress all parsing errors and continue parsing, ``2`` Log all parsing errors and continue parsing 
+
+Then you can retrieve a GAAP for a given context
 
 ::
 
-    gaap_obj = xbrl_parser.parseGAAP(xbrl, doc_date="20131228", context="current", ignore_errors=0)
+    gaap_obj = xbrl.get_GAAP(xbrl, "year", end_date="20131228")
 
 Now we have a ``GAAP`` model object that has the GAAP parsed elements
 from the document.
 
 This model object supports the several different features including:
 
--  ``context`` current, year, and instant contexts are supported. If available you can also get previous quarter information by number of days from doc date. Example: 90, 180, etc.
--  Error handling. ``0`` raise exception for all parsing errors and halt parsing, ``1`` Supress all parsing errors and continue parsing, ``2`` Log all parsing errors and continue parsing 
+-  ``context`` quarter, year, and instant contexts are supported. If available you can also get other timeframe information by number of days from end date. Example: 90, 180, etc.
 
 You can serialize the GAAP model object into a serialized object
 acceptable for rending into a standard format such as JSON or HTTP API.
@@ -95,17 +96,12 @@ You can also just view the data in the serialized object
 
     print result
 
-You can apply various parsers to the base ``XBRLParser`` object to get
-different data than just GAAP data from the document. In addition as
-expected you can also create different serialized objects on the
-resulting parsed data object.
-
 
 **Extracting DEI Data**
 
 ::
     
-    dei_obj = xbrl_parser.parseDEI(xbrl)
+    dei_obj = xbri.get_DEI()
     serializer = DEISerializer()
     result = serializer.dump(dei_obj)
     
@@ -113,7 +109,7 @@ resulting parsed data object.
 
 ::
     
-    custom_obj = xbrl_parser.parseCustom(xbrl)
+    custom_obj = xbrl.get_custom()
     print custom_obj()
 
 Testing
