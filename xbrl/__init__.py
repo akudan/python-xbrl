@@ -5,4 +5,4 @@ from __future__ import absolute_import
 
 from .xbrl import XBRL, GAAP, GAAPSerializer, XBRLException, DEISerializer
 
-version = (1, 1, 0)
+__version__ = "2.0.0"

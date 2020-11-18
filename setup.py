@@ -3,6 +3,18 @@ try:
 except ImportError:
     from distutils.core import setup
 import os
+import io
+from os.path import dirname, join
+
+def get_version(relpath):
+  '''Read version info from a file without importing it'''
+ 
+  for line in io.open(join(dirname(__file__), relpath), encoding='cp437'):
+    if '__version__' in line:
+      if '"' in line:
+        return line.split('"')[1]
+      elif "'" in line:
+        return line.split("'")[1]
 
 long_description = 'library for parsing xbrl documents'
 if os.path.exists('README.rst'):
@@ -10,7 +22,7 @@ if os.path.exists('README.rst'):
 
 setup(
     name='python-xbrl',
-    version='1.1.1',
+    version=get_version('xbrl/__init__.py'),
     description='library for parsing xbrl documents',
     author='Joe Cabrera',
     author_email='jcabrera@eminorlabs.com',
@@ -19,17 +31,13 @@ setup(
     keywords='xbrl, Financial, Accounting, file formats',
     packages=['xbrl'],
     install_requires=['pytest', 'pep8', 'marshmallow',
-    'beautifulsoup4', 'ordereddict', 'lxml', 'six'],
+    'beautifulsoup4', 'lxml'],
     classifiers=[
         'Intended Audience :: Developers',
         'Natural Language :: English',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.6',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.7',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: Office/Business :: Financial',
     ],
