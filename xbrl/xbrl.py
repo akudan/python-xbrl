@@ -49,6 +49,8 @@ class XBRL:
         # the default is today
         if end_date is None:
             end_date = datetime.date.today()
+        elif isinstance(end_date, str):
+            end_date = datetime.datetime.strptime(end_date, "%Y%m%d")
 
         # current is the previous quarter
         if context == "quarter":
