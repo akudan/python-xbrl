@@ -97,6 +97,30 @@ class XBRL:
         return gaap_obj
 
 
+    def get_quarterlies(self, field_names):
+        data = {x: {} for x in field_names}
+        ctx_ids = [x for x in self.context_ids.keys() if x.endswith("QTD")]
+        quarter_re = re.compile("[0-9]{4}Q[1-4]")
+        ctx_dict = OrderedDict([(cid, quarter_re.search(cid).group(0)) for cid in sorted(ctx_ids)])
+        for k in field_names:
+            for cid, quarter in ctx_dict.items():
+                data[k][quarter] = self.gaap_data[k].get(cid)
+
+        return data
+
+
+    def get_yearlies(self, field_names):
+        data = {x: {} for x in field_names}
+        ctx_ids = [x for x in self.context_ids.keys() if x.endswith("Q4YTD")]
+        year_re = re.compile("[0-9]{4}")
+        ctx_dict = OrderedDict([(cid, int(year_re.search(cid).group(0))) for cid in sorted(ctx_ids)])
+        for k in field_names:
+            for cid, year in ctx_dict.items():
+                data[k][year] = self.gaap_data[k].get(cid)
+
+        return data
+
+
     @classmethod
     def from_file(cls, file_handle, ignore_errors=0):
         """
