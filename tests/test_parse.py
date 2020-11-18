@@ -9,7 +9,6 @@ from xbrl import XBRLParserException
 import pytest
 import sys
 import os
-import six
 
 try:
     import __pypy__
@@ -798,26 +797,5 @@ def test_parse_Custom10Q_RRDonnelley():
     xbrl = xbrl_parser.parse(file_to_parse)
     custom_obj = xbrl_parser.parseCustom(xbrl)
 
-    if six.PY3:
-
-        result = len(custom_obj())
-
-        assert result == 13
-
-    if six.PY2 and not __pypy__:
-
-        result = custom_obj()
-
-        assert result[0] == ('conversionofclassbcommonstocktoclassacommonstockshares', '100000')
-        assert result[1] == ('percentageofproductionvolumes', '0.90')
-        assert result[2] == ('sharebasedcompensationarrangementbysharebasedpaymentawardoptionstovestineachtranche', '5000')
-        assert result[3] == ('weightedaveragenumberofsharesoutstandingbasicincludingnonvestedparticipatingsecurities', '12866000')
-        assert result[4] == ('incrementalcommonsharesattributabletoconversionofcommonstock', '4007000')
-        assert result[5] == ('sharebasedcompensationarrangementbysharebasedpaymentawardinvestmentsharesweightedaveragegrantdat', '59.62')
-        assert result[6] == ('incomeallocatedtoequityinstrumentsotherthanoptionnonvested', '7000')
-        assert result[7] == ('netproceedsfromsaleofinvestmentshares', '531000')
-        assert result[8] == ('weightedaveragenumberofbasicsharesoutstandingequityinstrumentsotherthanoptionnonvested', '94000')
-        assert result[9] == ('sharebasedcompensationarrangementbysharebasedpaymentawardemployeeinvestmentsharespurchase', '12894')
-        assert result[10] == ('provisionforreductionofdoubtfulaccounts', '-28000')
-        assert result[11] == ('receiptofgovernmentgrantsforfacilitiesexpansion', '770000')
-        assert result[12] == ('netincomelossallocatedtoequityinstrumentsotherthanoptionnonvested', '-143000')
+    result = len(custom_obj())
+    assert result == 13
